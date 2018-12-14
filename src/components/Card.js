@@ -6,7 +6,14 @@ import './Card.css';
 
 class Card extends Component {
 
+
+
   render() {
+
+    const onDeleteClick = () => {
+      console.log(`This is in Card: ${this.props.id}`);
+      this.props.deleteCardCallback(this.props.id);
+    }
 
     const cardEmoji = this.props.emoji ? emoji.getUnicode(this.props.emoji) : ''
     return (
@@ -18,6 +25,7 @@ class Card extends Component {
           <div className="card__content-emoji">
             {cardEmoji}
           </div>
+          <button onClick={() => onDeleteClick()}>Delete Card</button>
         </div>
       </section>
     )
