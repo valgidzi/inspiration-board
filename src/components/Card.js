@@ -25,7 +25,7 @@ class Card extends Component {
           <div className="card__content-emoji">
             {cardEmoji}
           </div>
-          <button onClick={() => onDeleteClick()}>Delete Card</button>
+          <button className="card__delete" onClick={() => onDeleteClick()}>Delete Card</button>
         </div>
       </section>
     )
