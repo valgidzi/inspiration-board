@@ -35,7 +35,7 @@ class Board extends Component {
 
     });
     return (
-      <div>
+      <div className="board">
         Board
         {cardCollection}
       </div>

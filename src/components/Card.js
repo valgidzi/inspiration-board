@@ -10,11 +10,16 @@ class Card extends Component {
 
     const cardEmoji = this.props.emoji ? emoji.getUnicode(this.props.emoji) : ''
     return (
-      <div className="card">
-        Card
-        {this.props.text}
-        {cardEmoji}
-      </div>
+      <section className="card">
+        <div className="card__content">
+          <div className="card__content-text">
+            {this.props.text}
+          </div>
+          <div className="card__content-emoji">
+            {cardEmoji}
+          </div>
+        </div>
+      </section>
     )
   }
 }
