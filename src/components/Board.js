@@ -69,9 +69,13 @@ class Board extends Component {
 
     });
     return (
-      <div className="board">
-        <NewCardForm addCardCallback={this.addCard}/>
-        {cardCollection}
+      <div>
+        <div className="new-card-form">
+          <NewCardForm addCardCallback={this.addCard}/>
+        </div>
+        <div className="board">
+          {cardCollection}
+        </div>
       </div>
     )
   }

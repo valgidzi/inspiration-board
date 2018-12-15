@@ -43,30 +43,24 @@ class NewCardForm extends Component {
       key={i} value={emojiText}>{emoji.getUnicode(emojiText)}</option>
   })
     return (
-      <div className="new-card-form">
-        <form className="new-card-form__form" id="newcardform"
-            onSubmit={this.onFormSubmit}>
-          <div>
-            <label htmlFor="Text" className="new-card-form__form-label">Text</label>
-            <textarea
-              className="new-card-form__form-textarea"
-              name="text"
-              form="newcardform"
-              value={this.state.text}
-              onChange={this.onInputChange}/>
-          </div>
-          <div>
-            <label htmlFor="emoji" className="new-card-form__form-label">Emoji</label>
-            <select className="new-card-form__form-select"
-              name="emoji"
-              value={this.state.emoji}
-              onChange={this.onInputChange}>
-              {dropdownEmojis}
-            </select>
-          </div>
-          <input type="submit" value="Create Card"/>
-        </form>
-      </div>
+      <form className="new-card-form__form" id="newcardform"
+          onSubmit={this.onFormSubmit}>
+          <label htmlFor="Text" className="new-card-form__form-label">Text</label>
+          <textarea
+            className="new-card-form__form-textarea"
+            name="text"
+            form="newcardform"
+            value={this.state.text}
+            onChange={this.onInputChange}/>
+          <label htmlFor="emoji" className="new-card-form__form-label">Emoji</label>
+          <select className="new-card-form__form-select"
+            name="emoji"
+            value={this.state.emoji}
+            onChange={this.onInputChange}>
+            {dropdownEmojis}
+          </select>
+        <input type="submit" value="Create Card" className="new-card-form__form-button"/>
+      </form>
     )
   }
 
