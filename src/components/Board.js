@@ -16,10 +16,11 @@ class Board extends Component {
   }
 
   componentDidMount() {
-    const url = `${this.props.url}${this.props.boardName}/cards`
-    axios.get(url)
+    const getCardsEndpoint = `${this.props.url}${this.props.boardName}/cards`
+
+    axios.get(getCardsEndpoint)
       .then((response) => {
-        const cards = response.data.map(inputCard => inputCard.card);
+        const cards = response.data.map(responseData => responseData.card);
         this.setState({ cards: cards });
       })
       .catch((error) => {
@@ -28,11 +29,13 @@ class Board extends Component {
   }
 
   addCard = (newCard) => {
-    axios.post(`${this.props.url}${this.props.boardName}/cards`, newCard)
+    const addCardEndpoint = `${this.props.url}${this.props.boardName}/cards`
+
+    axios.post(addCardEndpoint, newCard)
       .then((response) => {
         const cards = this.state.cards;
         cards.push(response.data.card);
-        this.setState({cards, message: 'working'})
+        this.setState({cards: cards})
       })
       .catch((error) => {
         this.setState({error: error.message})
@@ -40,14 +43,15 @@ class Board extends Component {
   };
 
   deleteCard = (cardId) => {
-    console.log(`This is in Board: ${cardId}`);
-    axios.delete(`https://inspiration-board.herokuapp.com/cards/${cardId}`)
+    const deleteCardEndpoint = `${this.props.cardsUrl}${cardId}`
+
+    axios.delete(deleteCardEndpoint)
       .then((response) => {
         const cardList = this.state.cards
         const clickedCard = cardList.find( card => card.id === cardId)
         const clickedCardIndex = cardList.indexOf(clickedCard)
-        console.log(clickedCardIndex);
-        this.state.cards.splice(clickedCardIndex, 1)
+
+        cardList.splice(clickedCardIndex, 1)
         this.setState({cards: cardList})
       })
       .catch((error) => {
@@ -57,10 +61,8 @@ class Board extends Component {
 
   render() {
 
-
-
     const cardCollection = this.state.cards.map((card, i) => {
-      return <Card key={i}
+      return <Card key={card.id}
         id={card.id}
         text={card.text}
         emoji={card.emoji}
@@ -83,7 +85,8 @@ class Board extends Component {
 }
 
 Board.propTypes = {
-  url: PropTypes.string,
+  cardsUrl: PropTypes.string,
+  boardsUrl: PropTypes.string,
   boardName: PropTypes.string
 };
 
