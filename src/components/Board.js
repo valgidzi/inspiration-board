@@ -39,29 +39,32 @@ class Board extends Component {
       });
   };
 
+  deleteCard = (cardId) => {
+    console.log(`This is in Board: ${cardId}`);
+    axios.delete(`https://inspiration-board.herokuapp.com/cards/${cardId}`)
+      .then((response) => {
+        const cardList = this.state.cards
+        const clickedCard = cardList.find( card => card.id === cardId)
+        const clickedCardIndex = cardList.indexOf(clickedCard)
+        console.log(clickedCardIndex);
+        this.state.cards.splice(clickedCardIndex, 1)
+        this.setState({cards: cardList})
+      })
+      .catch((error) => {
+        this.setState({error: error.message})
+      });
+  }
 
   render() {
 
-    const deleteCard = (cardId) => {
-      console.log(`This is in Board: ${cardId}`);
-      axios.delete(`https://inspiration-board.herokuapp.com/cards/${cardId}`)
-        .then((response) => {
-          const cardList = this.state.cards
-          const deletedCardIndex = cardList.find( card => card.id === cardId)
-          this.state.cards.splice(deletedCardIndex, 1)
-          this.setState({cards: cardList})
-        })
-        .catch((error) => {
-          this.setState({error: error.message})
-        });
-    }
+
 
     const cardCollection = this.state.cards.map((card, i) => {
       return <Card key={i}
         id={card.id}
         text={card.text}
         emoji={card.emoji}
-        deleteCardCallback={deleteCard}
+        deleteCardCallback={this.deleteCard}
         />
 
     });
