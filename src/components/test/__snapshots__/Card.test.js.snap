@@ -1,5 +1,28 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Card renders with no card data 1`] = `
+<section
+  className="card"
+>
+  <div
+    className="card__content"
+  >
+    <div
+      className="card__content-text"
+    />
+    <div
+      className="card__content-emoji"
+    />
+    <button
+      className="card__delete"
+      onClick={[Function]}
+    >
+      DISCARD
+    </button>
+  </div>
+</section>
+`;
+
 exports[`Card that it matches an existing snapshot 1`] = `
 <section
   className="card"

@@ -9,4 +9,12 @@ describe('Card', () => {
 
     expect(wrapper).toMatchSnapshot();
   });
+
+  test('renders with no card data', () => {
+
+    const wrapper = shallow(
+      <Card />);
+
+    expect(wrapper).toMatchSnapshot();
+  })
 });
