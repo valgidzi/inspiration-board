@@ -35,10 +35,12 @@ class Board extends Component {
       .then((response) => {
         const cards = this.state.cards;
         cards.push(response.data.card);
-        this.setState({cards: cards})
+        this.setState({cards: cards, errors: ''})
       })
       .catch((error) => {
-        this.setState({error: error.message})
+        console.log(error.response.data.errors);
+        const errors = error.response.data.errors
+        this.setState({errors: errors})
       });
   };
 
@@ -52,12 +54,13 @@ class Board extends Component {
         const clickedCardIndex = cardList.indexOf(clickedCard)
 
         cardList.splice(clickedCardIndex, 1)
-        this.setState({cards: cardList})
+        this.setState({cards: cardList, errors: ''})
       })
       .catch((error) => {
         this.setState({error: error.message})
       });
   }
+
 
   render() {
 
@@ -68,10 +71,15 @@ class Board extends Component {
         emoji={card.emoji}
         deleteCardCallback={this.deleteCard}
         />
-
     });
+
+    const validationErrors = this.state.errors ? `Error: ${this.state.errors.text}` : ''
+
     return (
       <div>
+        <div className="validation-errors-display">
+          {validationErrors}
+        </div>
         <div className="new-card-form">
           <NewCardForm addCardCallback={this.addCard}/>
         </div>

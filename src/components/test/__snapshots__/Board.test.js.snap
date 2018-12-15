@@ -2,7 +2,9 @@
 
 exports[`Board that it matches an existing snapshot 1`] = `
 <div>
-  <div />
+  <div
+    className="validation-errors-display"
+  />
   <div
     className="new-card-form"
   >
