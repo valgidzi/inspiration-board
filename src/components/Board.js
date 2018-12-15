@@ -19,14 +19,25 @@ class Board extends Component {
     const url = `${this.props.url}${this.props.boardName}/cards`
     axios.get(url)
       .then((response) => {
-        this.setState({ cards: response.data });
+        const cards = response.data.map(inputCard => inputCard.card);
+        this.setState({ cards: cards });
       })
       .catch((error) => {
         this.setState({error: error.message})
       });
   }
 
-
+  addCard = (newCard) => {
+    axios.post(`${this.props.url}${this.props.boardName}/cards`, newCard)
+      .then((response) => {
+        const cards = this.state.cards;
+        cards.push(response.data.card);
+        this.setState({cards, message: 'working'})
+      })
+      .catch((error) => {
+        this.setState({error: error.message})
+      });
+  };
 
 
   render() {
@@ -47,16 +58,16 @@ class Board extends Component {
 
     const cardCollection = this.state.cards.map((card, i) => {
       return <Card key={i}
-        id={card.card.id}
-        text={card.card.text}
-        emoji={card.card.emoji}
+        id={card.id}
+        text={card.text}
+        emoji={card.emoji}
         deleteCardCallback={deleteCard}
         />
 
     });
     return (
       <div className="board">
-        <NewCardForm />
+        <NewCardForm addCardCallback={this.addCard}/>
         {cardCollection}
       </div>
     )

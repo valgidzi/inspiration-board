@@ -13,31 +13,58 @@ class NewCardForm extends Component {
     }
   }
 
+  onInputChange = (event) => {
+    const field = event.target.name;
+    const value = event.target.value;
+    const newState = {};
+    newState[field] = value;
+    this.setState(newState);
+  }
 
+  onFormSubmit = (event) => {
+    event.preventDefault();
+    const newCard = {
+      text: this.state.text,
+      emoji: this.state.emoji
+    };
+    this.props.addCardCallback(newCard);
+
+    this.setState({
+      text: '',
+      emoji: ''
+    });
+
+  }
 
   render() {
   const EMOJI_LIST = ["", "heart_eyes", "beer", "clap", "sparkling_heart", "heart_eyes_cat", "dog"]
   const dropdownEmojis = EMOJI_LIST.map((emojiText, i) => {
     return <option
-      key={i} value="emoji">{emoji.getUnicode(emojiText)}</option>
+      key={i} value={emojiText}>{emoji.getUnicode(emojiText)}</option>
   })
     return (
       <div className="new-card-form">
-        <form className="new-card-form__form" id="newcardform">
+        <form className="new-card-form__form" id="newcardform"
+            onSubmit={this.onFormSubmit}>
           <div>
             <label htmlFor="Text" className="new-card-form__form-label">Text</label>
             <textarea
               className="new-card-form__form-textarea"
               name="text"
               form="newcardform"
-              value={this.state.text}/>
+              value={this.state.text}
+              onChange={this.onInputChange}/>
           </div>
           <div>
             <label htmlFor="emoji" className="new-card-form__form-label">Emoji</label>
-            <select className="new-card-form__form-select">
+            <select className="new-card-form__form-select"
+              name="emoji"
+              value={this.state.emoji}
+              onChange={this.onInputChange}>
               {dropdownEmojis}
             </select>
           </div>
+          <input type="submit" value="Create Card"/>
         </form>
       </div>
     )
