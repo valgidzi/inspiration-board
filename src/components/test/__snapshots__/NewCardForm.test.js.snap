@@ -8,7 +8,7 @@ exports[`NewCardForm that it matches an existing snapshot 1`] = `
 >
   <label
     className="new-card-form__form-label"
-    htmlFor="Text"
+    htmlFor="text"
   >
     Text
   </label>
