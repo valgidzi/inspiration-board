@@ -1,38 +1,43 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import emoji from 'emoji-dictionary';
 
 import './Card.css';
 
-class Card extends Component {
+const Card = (props) => {
 
-  onDeleteClick = () => {
-    console.log(`This is in Card: ${this.props.id}`);
-    this.props.deleteCardCallback(this.props.id);
+  const cardText = props.text
+
+  const cardEmoji = props.emoji ? emoji.getUnicode(props.emoji) : ''
+
+  const onDeleteClick = () => {
+    props.deleteCardCallback(props.id);
   }
 
-  render() {
-    const cardEmoji = this.props.emoji ? emoji.getUnicode(this.props.emoji) : ''
-    return (
-      <section className="card">
-        <div className="card__content">
-          <div className="card__content-text">
-            {this.props.text}
-          </div>
-          <div className="card__content-emoji">
-            {cardEmoji}
-          </div>
-          <button className="card__delete" onClick={this.onDeleteClick}>Delete Card</button>
+  return (
+    <section className="card">
+      <div className="card__content">
+        <div className="card__content-text">
+          {cardText}
         </div>
-      </section>
-    )
-  }
+        <div className="card__content-emoji">
+          {cardEmoji}
+        </div>
+        <button
+          className="card__delete"
+          onClick={onDeleteClick}>
+          DISCARD
+        </button>
+      </div>
+    </section>
+  )
 }
 
 Card.propTypes = {
+  id: PropTypes.number,
   text: PropTypes.string,
   emoji: PropTypes.string,
-  id: PropTypes.number
+  deleteCardCallback: PropTypes.func
 };
 
 export default Card;

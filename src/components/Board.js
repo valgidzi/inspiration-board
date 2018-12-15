@@ -61,7 +61,7 @@ class Board extends Component {
 
   render() {
 
-    const cardCollection = this.state.cards.map((card, i) => {
+    const cardCollection = this.state.cards.map((card) => {
       return <Card key={card.id}
         id={card.id}
         text={card.text}

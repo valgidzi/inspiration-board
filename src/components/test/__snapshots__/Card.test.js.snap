@@ -19,7 +19,7 @@ exports[`Card that it matches an existing snapshot 1`] = `
       className="card__delete"
       onClick={[Function]}
     >
-      Delete Card
+      DISCARD
     </button>
   </div>
 </section>
