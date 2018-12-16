@@ -38,7 +38,6 @@ class Board extends Component {
         this.setState({cards: cards, errors: ''})
       })
       .catch((error) => {
-        console.log(error.response.data.errors);
         const errors = error.response.data.errors
         this.setState({errors: errors})
       });
@@ -73,7 +72,8 @@ class Board extends Component {
         />
     });
 
-    const validationErrors = this.state.errors ? `Error: ${this.state.errors.text}` : ''
+    const validationErrors = this.state.errors ?
+    `Error: ${this.state.errors.text}` : ''
 
     return (
       <div>
